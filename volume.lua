@@ -24,7 +24,7 @@ local volume_widget = wibox.widget {
         resize = false,
         widget = wibox.widget.imagebox,
     },
-    layout = wibox.container.margin(_, _, _, 3),
+    layout = wibox.container.margin(_, 3, 3, 3),
     set_image = function(self, path)
         self.icon.image = path
     end
@@ -51,14 +51,16 @@ end
 ]]
 volume_widget:connect_signal("button::press", function(_,_,_,button)
     if (button == 4)     then 
-        awful.spawn("amixer -D pulse sset Master 5%+", false)
+        spawn("amixer -D pulse sset Master 5%+", false)
         volume_widget:emit_signal("volume_change");
     elseif (button == 5) then 
-        awful.spawn("amixer -D pulse sset Master 5%-", false)
+        spawn("amixer -D pulse sset Master 5%-", false)
         volume_widget:emit_signal("volume_change");
     elseif (button == 1) then 
-        awful.spawn("amixer -D pulse sset Master toggle", false)
+        spawn("amixer -D pulse sset Master toggle", false)
         volume_widget:emit_signal("volume_mute");
+    elseif (button == 3) then
+        spawn('pavucontrol');
     end
     
     spawn.easy_async(request_command, function(stdout, stderr, exitreason, exitcode)

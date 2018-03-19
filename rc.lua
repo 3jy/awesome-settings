@@ -15,6 +15,8 @@ local hotkeys_popup = require("awful.hotkeys_popup").widget
 require("awful.hotkeys_popup.keys")
 -- volume widget
 local volume = require("volume")
+-- file manager widget
+local fm = require("fm")
 
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
@@ -219,8 +221,9 @@ awful.screen.connect_for_each_screen(function(s)
         s.mytasklist, -- Middle widget
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
+            fm,
             mykeyboardlayout,
-	    volume,
+	        volume,
             wibox.widget.systray(),
             mytextclock,
             s.mylayoutbox,
